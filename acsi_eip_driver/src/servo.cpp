@@ -139,10 +139,11 @@ bool ACSI::enable(acsi_eip_driver::acsi_enable::Request  &req,
 
   if(!ss.host_control) {
     so.drive_command = (req.enable) ? ENABLE : DISABLE;
-    return res.success = true;
+    res.success = true;
   } else {
-    return res.success = false;
+    res.success = false;
   }
+  return true;
 }
 
 bool ACSI::moveHome(acsi_eip_driver::acsi_moveHome::Request  &req,
@@ -152,10 +153,11 @@ bool ACSI::moveHome(acsi_eip_driver::acsi_moveHome::Request  &req,
   if(!ss.host_control && req.home) {
     so.drive_command = GOHOME;
     so.motion_type = HOME;
-    return res.success = true;
+    res.success = true; 
   } else {
-    return res.success = false;
+    res.success = false;
   }
+  return true;
 }
 
 bool ACSI::moveStop(acsi_eip_driver::acsi_moveStop::Request  &req,
@@ -164,10 +166,11 @@ bool ACSI::moveStop(acsi_eip_driver::acsi_moveStop::Request  &req,
 
   if(!ss.host_control) {
     so.drive_command = (req.stop) ? STOP : so.drive_command;
-    return res.success = true;
+    res.success = true; 
   } else {
-    return res.success = false;
+    res.success = false; 
   }
+  return true;
 }
 
 bool ACSI::setHome(acsi_eip_driver::acsi_setHome::Request  &req,
@@ -176,11 +179,11 @@ bool ACSI::setHome(acsi_eip_driver::acsi_setHome::Request  &req,
 
   if(!ss.host_control) {
     so.drive_command = (req.sethome) ? HOME_HERE: so.drive_command;
-    return res.success = true;
+    res.success = true;
   } else {
-    return res.success = false;
+    res.success = false;
   }
-
+  return true;
 }
 
 bool ACSI::setProfile(acsi_eip_driver::acsi_setProfile::Request &req, 
@@ -191,10 +194,11 @@ bool ACSI::setProfile(acsi_eip_driver::acsi_setProfile::Request &req,
         so.accel = req.acceleration;
         so.decel = req.deceleration;
         so.force = req.force;
-      return res.success = true;
+        res.success = true;
     } else {
-      return res.success = false;
+        res.success = false;
     }
+    return true;
 }
 
 bool ACSI::moveVelocity(acsi_eip_driver::acsi_moveVelocity::Request &req, 
@@ -211,10 +215,11 @@ bool ACSI::moveVelocity(acsi_eip_driver::acsi_moveVelocity::Request &req,
         }
         so.velocity = std::abs(req.velocity);
 
-      return res.success = true;
+      res.success = true;
     } else {
-      return res.success = false;
+      res.success = false;
     }
+    return true;
 }
 
 bool ACSI::moveAbsolute(acsi_eip_driver::acsi_moveAbsolute::Request  &req,
@@ -225,10 +230,11 @@ bool ACSI::moveAbsolute(acsi_eip_driver::acsi_moveAbsolute::Request  &req,
         so.motion_type = ABSOLUTE;
         so.position = req.position;
 
-      return res.success = true;
+      res.success = true;
     } else {
-      return res.success = false;
+      res.success = false;
     }
+    return true;
 }
 
 bool ACSI::moveIncremental(acsi_eip_driver::acsi_moveIncremental::Request  &req,
@@ -245,11 +251,11 @@ bool ACSI::moveIncremental(acsi_eip_driver::acsi_moveIncremental::Request  &req,
 
         so.position = std::abs(req.increment);
 
-      return res.success = true;
+        res.success = true;
     } else {
-      return res.success = false;
+        res.success = false;
     }
-
+    return true;
 }
 
 bool ACSI::moveRotary(acsi_eip_driver::acsi_moveRotary::Request  &req,
@@ -266,9 +272,9 @@ bool ACSI::moveRotary(acsi_eip_driver::acsi_moveRotary::Request  &req,
 
         so.position = std::abs(req.increment);
 
-      return res.success = true;
+        res.success = true;
     } else {
-      return res.success = false;
+        res.success = false;
     }
 }
 
@@ -279,9 +285,9 @@ bool ACSI::moveSelect(acsi_eip_driver::acsi_moveSelect::Request  &req,
   if(!ss.host_control  && ss.enabled && req.select > 0 && req.select <= 16) {
     so.drive_command = START;
     so.move_select = req.select;
-    return res.success = true;
+    res.success = true;
   } else {
-    return res.success = false;
+    res.success = false;
   }
 
   return true;
@@ -294,11 +300,11 @@ bool ACSI::estop(acsi_eip_driver::acsi_estop::Request  &req,
 
   if(!ss.host_control) {
     so.drive_command = (req.estop) ? ESTOP : so.drive_command;
-    return res.success = true;
+    res.success = true;
   } else {
-    return res.success = false;
+    res.success = false;
   }
-
+  return true;
 }
 
 

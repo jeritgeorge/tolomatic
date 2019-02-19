@@ -103,10 +103,11 @@ bool STEPPER::enable(stepper_eip_driver::stepper_enable::Request  &req,
 
   if(!ss.host_control) {
     so.drive_command = (req.enable) ? ENABLE : DISABLE;
-    return res.success = true;
+    res.success = true;
   } else {
-    return res.success = false;
+    res.success = false;
   }
+  return true;
 }
 
 bool STEPPER::moveProfile(stepper_eip_driver::stepper_moveProfile::Request  &req,
@@ -116,9 +117,9 @@ bool STEPPER::moveProfile(stepper_eip_driver::stepper_moveProfile::Request  &req
   if(!ss.host_control && req.profile > 0 && req.profile < 16) {
     so.drive_command = START;
     so.move_select = req.profile;
-    return res.success = true;
+    res.success = true;
   } else {
-    return res.success = false;
+    res.success = false;
   }
 
   return true;
@@ -130,10 +131,11 @@ bool STEPPER::home(stepper_eip_driver::stepper_home::Request  &req,
 
   if(!ss.host_control) {
     so.drive_command = (req.home) ? GOHOME: so.drive_command;
-    return res.success = true;
+    res.success = true;
   } else {
-    return res.success = false;
+    res.success = false;
   }
+  return true;
 }
 
 bool STEPPER::stop(stepper_eip_driver::stepper_stop::Request  &req,
@@ -142,10 +144,11 @@ bool STEPPER::stop(stepper_eip_driver::stepper_stop::Request  &req,
 
   if(!ss.host_control) {
     so.drive_command = (req.stop) ? STOP : so.drive_command;
-    return res.success = true;
+    res.success = true;
   } else {
-    return res.success = false;
+    res.success = false;
   }
+  return true;
 }
 
 //not implimented
