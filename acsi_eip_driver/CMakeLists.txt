@@ -55,6 +55,11 @@ target_link_libraries(servo
   ${catkin_LIBRARIES}
 )
 
+add_library(servo_simulate src/servo_simulate.cpp)
+target_link_libraries(servo_simulate
+  ${catkin_LIBRARIES}
+)
+
 add_dependencies(
     servo
     ${${PROJECT_NAME}_EXPORTED_TARGETS}
@@ -75,14 +80,27 @@ target_link_libraries(servo_node
   ${Boost_LIBRARIES}
 )
 
+add_executable(servo_node_simulate src/servo_node_simulate.cpp)
+target_link_libraries(servo_node_simulate
+  servo_simulate
+  ${catkin_LIBRARIES}
+  ${Boost_LIBRARIES}
+)
+
 add_dependencies(
     servo_node
     ${${PROJECT_NAME}_EXPORTED_TARGETS}
     ${catkin_EXPORTED_TARGETS}
 )
 
+add_dependencies(
+    servo_node_simulate
+    ${${PROJECT_NAME}_EXPORTED_TARGETS}
+    ${catkin_EXPORTED_TARGETS}
+)
+
 ## Mark executables and libraries for installation
-install(TARGETS servo servo_node scanner_node
+install(TARGETS servo servo_node scanner_node servo_node_simulate
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
